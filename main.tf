@@ -5,6 +5,7 @@
   role_arn = var.role_arn
 }
   provider "aws" {
+  alias = "dynamic"
   access_key = data.doormat_aws_credentials.creds.access_key
   secret_key = data.doormat_aws_credentials.creds.secret_key
   token      = data.doormat_aws_credentials.creds.token
@@ -23,6 +24,7 @@ resource "aws_key_pair" "this" {
   public_key      = var.create_private_key ? trimspace(tls_private_key.this[0].public_key_openssh) : var.public_key
 
   tags = var.tags
+  provider = aws.dynamic
 }
 
 ################################################################################
@@ -34,4 +36,5 @@ resource "tls_private_key" "this" {
 
   algorithm = var.private_key_algorithm
   rsa_bits  = var.private_key_rsa_bits
+  provider = aws.dynamic
 }
