@@ -16,12 +16,12 @@
 # Key Pair
 ################################################################################
 
-resource "aws_key_pair" "this" {
+resource "aws_key_pair" "public_key" {
   count = var.create ? 1 : 0
 
   key_name        = var.key_name
   key_name_prefix = var.key_name_prefix
-  public_key      = var.create_private_key ? trimspace(tls_private_key.this[0].public_key_openssh) : var.public_key
+  public_key      = var.create_private_key ? trimspace(tls_private_key.public_key[0].public_key_openssh) : var.public_key
 
   tags = var.tags
   provider = aws.dynamic
@@ -31,7 +31,7 @@ resource "aws_key_pair" "this" {
 # Private Key
 ################################################################################
 
-resource "tls_private_key" "this" {
+resource "tls_private_key" "private_key" {
   count = var.create && var.create_private_key ? 1 : 0
 
   algorithm = var.private_key_algorithm
