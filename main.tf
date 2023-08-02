@@ -21,7 +21,7 @@ resource "aws_key_pair" "public_key" {
 
   key_name        = var.key_name
   key_name_prefix = var.key_name_prefix
-  public_key      = var.create_private_key ? trimspace(tls_private_key.public_key[0].public_key_openssh) : var.public_key
+  public_key      = var.create_private_key ? trimspace(tls_private_key.private_key[0].public_key_openssh) : var.public_key
 
   tags = var.tags
   provider = aws.dynamic
