@@ -53,3 +53,11 @@ variable "private_key_rsa_bits" {
   type        = number
   default     = 4096
 }
+
+variable "role_arn" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
